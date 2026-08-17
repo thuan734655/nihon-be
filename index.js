@@ -246,6 +246,13 @@ app.delete('/api/items/:type/:id', async (req, res) => {
   }
 });
 
+// Serve frontend in production (Render)
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
